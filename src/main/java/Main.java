@@ -18,7 +18,7 @@ public class Main {
             System.out.println("Current value " + currValue);
         };
 
-        Predicate<? super Integer> filter = i -> (i > 0) && ((i & 1) == 1);
+        Predicate<? super Integer> filter = i -> (i > 0) && ((i & 1) == 0);
 
 
         Arrays.stream(args).forEach(s -> {

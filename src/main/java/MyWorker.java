@@ -20,8 +20,14 @@ abstract class MyWorker {
 
     abstract Stream<String> getLines(String name) throws IOException;
 
-    boolean work() throws IOException {
-        Stream<String> lines = getLines(name);
+    void work() {
+        Stream<String> lines = null;
+        try {
+            lines = getLines(name);
+        } catch (IOException e) {
+            stop.set(true);
+            System.out.println("Error loading " + e.getMessage());
+        }
 
         lines.parallel()
                 .filter(s -> !stop.get())
@@ -37,6 +43,5 @@ abstract class MyWorker {
                         })
                         .filter(filter)
                         .forEach(action));
-        return true;
     }
 }
